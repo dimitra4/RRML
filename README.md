@@ -18,7 +18,7 @@ These are the *prerequisites* you’ll need to have installed if you want to run
     - [Install Jinja2](https://jinja.palletsprojects.com/en/stable/intro/#installation) - most recent Jinja version
 - [Visual Studio Code](https://code.visualstudio.com/) - or any other IDE of your choice
 
-<br><br><br>
+<br>
 
 ### Tutorials
 
@@ -26,7 +26,7 @@ Material for MkDocs:
 - [mkdocs-material documentation](https://jameswillett.dev/getting-started-with-material-for-mkdocs/#collapsible-admonitions)
 - [mkdocs-material Youtube video](https://www.youtube.com/watch?v=xlABhbnNrfI)
 
-<br><br><br>
+<br><br>
 
 Go to Visual Studio settings and add the below to the json file.
 This is YAML validation for the mkdocs material theme and functionality.
