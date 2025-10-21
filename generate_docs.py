@@ -35,22 +35,72 @@ MODEL_TEMPLATE = Template("""
 - **{{ validator.name }}**: {{ validator.description }}
 {% endfor %}
 {% endif %}
+                          
+{% for field in fields -%}
+{% set safe = field.type|default('', true) -%}
+{% set before_link = safe.split('](#')[0] -%}
+{% set name = before_link.rsplit('[', 1)[-1] -%}
+{% if field.is_model and name %}
+{% if name in ('ArithmeticOperator', 'ComparisonOperator')%}    
+{% raw %}{% include-markdown "{% endraw %}enum.md{% raw %}" %}{% endraw %} 
+{% else %}                          
+{% raw %}{% include-markdown "{% endraw %}{{ name }}.md{% raw %}" %}{% endraw %} 
+{% endif %}
+{% endif %}
+{% endfor %}
 """)
 
 
 INDEX_TEMPLATE = Template("""
-# Resource and Query Builder Specification                  
+# RESTful Resource Mapping Specification (RRMS) 
 
-## Models
+The **RESTful Resource Mapping Specification (RRMS)** is a lightweight, declarative language for defining RESTful API resources and their mappings to relational databases.  
 
-{% for model in models %}
-- [{{ model.name }}](#{{model.name.lower()}})
-{% endfor %}
+Instead of writing boilerplate code for every new endpoint, developers and domain experts can describe resources in **human-readable YAML files**, including:
+
+- Resource attributes and identifiers  
+- Database mappings and joins  
+- Query logic, functions, and aggregations  
+- Validation constraints  
+
+These specifications are automatically validated and transformed into executable code through a **template-based code generation pipeline**. The result is a set of fully functional API components—resources, repositories, mappers, and query builders—aligned with the existing backend.
+
+---
+
+## Why use RRMS?
+
+- **Reduce boilerplate**: eliminate repetitive coding of endpoints.  
+- **Consistency by design**: endpoints follow the same structure and rules.  
+- **Expressiveness**: model simple to complex query logic in a declarative way.  
+- **Faster onboarding**: new developers or domain experts can contribute without mastering backend frameworks.  
+- **Flexibility**: templates can target different runtimes (Java today, Python/FastAPI or others tomorrow).  
+
+---
+
+## Who is this for?
+
+- **API developers** who want to speed up endpoint creation.  
+- **Domain experts** who can describe data models without writing code.  
+- **Teams** aiming for maintainability, scalability, and alignment across APIs.  
+
+---
+
+## How it works (at a glance)
+
+1. **Write** YAML files describing resources and their mappings.  
+2. **Validate** them against the RRMS metamodel (Pydantic). They must conform to the main Pydantic object models  
+3. **Generate** backend code automatically via Jinja templates.  
+4. **Deploy** the generated classes as working REST endpoints.                
+
+## Main Pydantic Object Models
+
+- [Resource](#resource)
+- [ResourceToDbMapper](#resourcetodbmapper)
                           
-{% for model in models %}
-{% raw %}{% include-markdown "{% endraw %}{{ model.filename }}{% raw %}" %}{% endraw %}        
-{% endfor %}
 """)
+# {% for model in models %}
+# {% raw %}{% include-markdown "{% endraw %}{{ model.filename }}{% raw %}" %}{% endraw %}        
+# {% endfor %}
 
 # ==== HELPERS ====
 
@@ -89,7 +139,8 @@ def clean_annotation(annotation: Any) -> tuple[str, bool, str]:
         name = annotation.__name__
         is_model = name not in {"str", "int", "bool", "float", "list", "dict"}
         if is_model:
-            name = f"[{name}]({name}.md)"
+            anchor = name.lower()
+            name = f"[{name}](#{anchor})"
         return name, is_model, is_model
 
     # Fallback (for weird types)
@@ -118,6 +169,7 @@ def extract_fields(model: Type[BaseModel]) -> List[dict]:
         fields.append({
             "name": field_name,
             "type": annotation,
+            "is_model": is_model,
             "status": required_field,
             "description": desc,
             "constraints": "<br>".join(extras) if extras else ""
@@ -178,14 +230,23 @@ def find_pydantic_models(module) -> List[Type[BaseModel]]:
 def main():
     module_names = discover_modules(BASE_MODULE, BASE_PATH)
     print(module_names)
-
+    
     models_info = []
     for module_name in module_names:
         mod = importlib.import_module(module_name)
         models = find_pydantic_models(mod)
+        print(models)
         
         for model in models:
-            models_info.append(render_model(model))
+            FULL_NAME = f"{model.__module__}.{model.__name__}"
+            if FULL_NAME not in {
+                # "pydantic_models.queryBuilderObjModel.AdditionalTable",
+                # "pydantic_models.queryBuilderObjModel.Function",
+                "pydantic_models.queryBuilderObjModel.ResourceToDbMappingSpec",
+                "pydantic_models.resourceObjModel.ResourceMappingSpec"
+            }:
+                print(model)
+                models_info.append(render_model(model))
             
     print(models_info)  
 

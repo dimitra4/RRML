@@ -1,5 +1,6 @@
 import re
 from .enum import FieldType
+from .typoDetectingModel import TypoDetectingModel
 
 from typing import (
     Literal,
@@ -9,13 +10,13 @@ from typing import (
     Annotated
 )
 from pydantic import (
-    BaseModel,
     Field,
     field_validator,
     model_validator,
     ValidationInfo,
     AfterValidator
 )
+
 # todo raise error if there not at all in the model instance the isKey field ** done
 # todo add attr spec_version and validate
 
@@ -30,22 +31,22 @@ def sanitize_string(value: str) -> str:
 # Create an Annotated type with the validator
 SanitizedStr = Annotated[str, AfterValidator(sanitize_string)]
 
-class MetaData(BaseModel):
+class MetaData(TypoDetectingModel):
     title: Optional[str] = None
     description: Optional[str] = None
-    searchable: Optional[bool]
-    sortable: Optional[bool]
+    searchable: bool
+    sortable: bool
     units: Optional[SanitizedStr] = None
 
 
-class Attribute(BaseModel):
+class Attribute(TypoDetectingModel):
     name: SanitizedStr = Field(
         description="Name of the attribute of the resource",
         examples=["id", "start_time", "run_number"]
     )
-    type: FieldType = Field(
+    type: str= Field(
         description="The data type of the attribute of the resource according to the standardized mapping_types YAML file"
-    )
+    ) 
     isKey: Optional[bool] = Field(
         description="Explicitly determine true if the attribute is the actual identifier of the resource",
         default=None
@@ -55,7 +56,7 @@ class Attribute(BaseModel):
         default=None,
     )
 
-class Resource(BaseModel):
+class Resource(TypoDetectingModel):
     resource_name: str = Field(
         description="The name of the resource. All classes will be named using this name",
         pattern=r'^[a-zA-Z0-9_]+$',  # Allows letters, digits, and underscores (no special characters)
@@ -71,43 +72,36 @@ class Resource(BaseModel):
         min_items=1
     )
 
-    @model_validator(mode="before")
+    @model_validator(mode="after")
     @classmethod
-    def validate_fields(cls, v: dict[str, Any]) -> dict[str, Any]:
+    def validate_fields(cls, model_instance):
+        """
+        Runs AFTER case correction and field validation for business logic validation
+        """
         errors = []
-        fields = v.get("fields", [])
-        if not fields:
-            raise ValueError("The key 'fields' must be provided and must contain at least one attribute.")
-
-        has_key_field = False
-
-        for idx, field in enumerate(fields):
-            # Ensure 'name' is present
-            if 'name' not in field:
-                errors.append(f"fields[{idx}]: The 'name' attribute is missing. ")
-
-            # Ensure 'type' is present
-            if 'type' not in field:
-                errors.append(f"fields[{idx}]: The 'type' attribute is missing.")
-
-            if field.get('isKey') is True:
-                has_key_field = True
-
-        if not has_key_field:
-            errors.append(f"At least one attribute from 'fields' must have isKey=true.")
         
-        # Raise all errors at once
+        fields = model_instance.fields
+        has_key_field = False
+ 
+        for idx, field in enumerate(fields):                   
+            # Check for key field
+            if field.isKey is True:
+                has_key_field = True
+        
+        if not has_key_field:
+            errors.append("At least one field must have isKey=true, that represents the identifier of the Resource")
+        
         if errors:
-            raise ValueError("Validation errors:\n" + "\n".join(errors) + "\n")
-
-        return v
+            error_message = f"Resource validation failed with {len(errors)} error(s):\n"
+            error_message += "\n".join(f"  • {error}" for error in errors)
+            raise ValueError(error_message)
+        
+        return model_instance
 
     
-class ResourceMappingSpec(BaseModel):
+class ResourceMappingSpec(TypoDetectingModel):
     resource: Resource = Field(
         description="The resource object containing metadata and fields.",
         validation_alias='resource'
     )
 
-# valid_instance = Attribute(name="John@Doe#123!", type="string" )
-# print(valid_instance)

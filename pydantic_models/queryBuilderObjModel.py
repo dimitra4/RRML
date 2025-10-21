@@ -6,17 +6,35 @@ from typing import (
     Union
 )
 from pydantic import (
-    BaseModel,
     Field,
     model_validator
 )
+from .typoDetectingModel import TypoDetectingModel
 from .resourceObjModel import Resource
 from .enum import (
     ArithmeticOperator,
     ComparisonOperator
     )
 
-class SortedQuery(BaseModel):
+class SortingSubSelect(TypoDetectingModel):
+    by: str = Field(
+        description="The field name to sort by, e.g., 'run_number'."
+    )
+    type: Literal["dense_rank", "rank", "row_number"] = Field(
+        description=(
+            "The sort method to use. Options include:\n"
+            "- 'dense_rank': Assigns ranks with no gaps in ranking values.\n"
+            "- 'rank': Like dense_rank but leaves gaps in the ranking sequence for ties.\n"
+            "- 'row_number': Assigns a unique sequential number to rows.\n"
+        ),
+        default=None
+    )
+    order: Literal["asc", "desc"] = Field(
+        description="The direction of sorting: 'asc' for ascending, 'desc' for descending.",
+        default=None
+    )
+
+class SortedQuery(TypoDetectingModel):
     fields: List[str] = Field(
         description="List of the accepted attributes to be sorted",
         min_items=1
@@ -30,7 +48,7 @@ class SortedQuery(BaseModel):
         default=None
     )
 
-class DBColumnReference(BaseModel):
+class DBColumnReference(TypoDetectingModel):
     table: str = Field(
         description="The table name of the referenced column"
     )
@@ -38,7 +56,7 @@ class DBColumnReference(BaseModel):
         description="The name of the column being referenced."
     )
 
-class Condition(BaseModel):
+class Condition(TypoDetectingModel):
     table: Optional[str] = Field(
         description="The table name of the referenced column",
         default=None
@@ -60,7 +78,7 @@ class Condition(BaseModel):
     )
 
 # todo the operator check ** done
-class CaseExpression(BaseModel):
+class CaseExpression(TypoDetectingModel):
     when: Condition = Field(
         description=(
             "A condition that must be met for this branch to apply. "
@@ -78,7 +96,7 @@ class CaseExpression(BaseModel):
     )
 
 # todo check if the column name hase the same name as one of the tableKey, targetKey
-class Regex(BaseModel):
+class Regex(TypoDetectingModel):
     column: str = Field(
         description="The name of the column to which the regular expression will be applied. It must match one of the defined relation keys",
         example="string_value: in the REGEXP_SUBSTR(string_value, '[^/]+', 1, 2) regex"
@@ -92,7 +110,7 @@ class Regex(BaseModel):
         example="[1, 2]]: in the REGEXP_SUBSTR(string_value, '[^/]+', 1, 2) regex"
     ) 
 
-class RelationKey(BaseModel):
+class RelationKey(TypoDetectingModel):
     tableKey: str = Field (
         description="The name of the database column used to establish the relationship between the two tables. " \
         "If the column names differ, the `targetKey` segment must be specified"
@@ -108,7 +126,7 @@ class RelationKey(BaseModel):
         default=None
     )
 
-class Function(BaseModel):
+class Function(TypoDetectingModel):
     name: str = Field(
         description="Fully qualified name of the db function to call or any other built-in sql function",
         examples=["min", "max", "count", "avg", "sum", "round", "upper", "trim"]
@@ -123,10 +141,10 @@ class Function(BaseModel):
         default=None 
     )
 
-class FunctionCall(BaseModel):
+class FunctionCall(TypoDetectingModel):
     function: Function
 
-class Expression(BaseModel):
+class Expression(TypoDetectingModel):
     operator: ArithmeticOperator = Field(description="The arithmetic operator")
     left: Union[int, float, DBColumnReference, FunctionCall, "Expression"] = Field(
         description="The left-hand side of the expression"
@@ -136,7 +154,8 @@ class Expression(BaseModel):
     )
 
 # todo if one of the attNamedb, expression, case_expression, function does not exists then raise an error ** done
-class TableAttribute(BaseModel):
+# todo to have the sort if the relation is subselect
+class TableAttribute(TypoDetectingModel):
     attNamedb: Optional[str] = Field(
         description="Same name as the name of the database attribute of the table",
         default=None
@@ -157,8 +176,12 @@ class TableAttribute(BaseModel):
         min_items=1,
         default=None
     )
+    sort: SortingSubSelect = Field(
+        description="Sorting the subselect",
+        default=None
+    )
 
-class AdditionalTable(BaseModel):
+class AdditionalTable(TypoDetectingModel):
     namedb: str = Field(
         description="The name of the database's additional table"
     )
@@ -191,7 +214,7 @@ class AdditionalTable(BaseModel):
         default=None
     )
 
-class ResourceToDbMapper(BaseModel):
+class ResourceToDbMapper(TypoDetectingModel):
     resource_name: str = Field(
         description="The name of the resource. Needs to be associated with an existing resource",
         pattern=r'^[a-zA-Z0-9_]+$',
@@ -231,7 +254,8 @@ class ResourceToDbMapper(BaseModel):
         description="Counting of the rows from the db resultset"
     )
 
-class ResourceToDbMappingSpec(BaseModel):
+class ResourceToDbMappingSpec(TypoDetectingModel):
+    masterTable: Optional[str] = None
     resourceToDbMapper: ResourceToDbMapper = Field(
         description="Mapping of a resource to its database schema",
         validation_alias='resourceToDbMapper'
@@ -240,16 +264,16 @@ class ResourceToDbMappingSpec(BaseModel):
         description="The specification of the resource."
     )
 
-    @model_validator(mode="before")
+    @model_validator(mode="after")
     @classmethod
-    def validate_fields(cls, v: dict[str, Any]) -> dict[str, Any]:
+    def validate_fields(cls, model_instance):
         errors = []
-        if v is None:
+        if model_instance is None:
             raise ValueError("Input data cannot be None")
-        mapper = v.get("resourceToDbMapper")
-        resource = v.get("resource")
-        map_resource_name = mapper.get("resource_name")
-        res_resource_name = resource.get("resource_name")
+        mapper = model_instance.resourceToDbMapper
+        resource = model_instance.resource
+        map_resource_name = mapper.resource_name
+        res_resource_name = resource.resource_name
 
         if map_resource_name != res_resource_name:
             errors.append(
@@ -257,43 +281,66 @@ class ResourceToDbMappingSpec(BaseModel):
                 f"does not match resource.resource_name (`{res_resource_name}`)"
             )
         
-        fields = mapper.get("fields", []) or []
-        additionalTable = mapper.get("additionalTables", []) or []
-        # Collect fields from additionalTables
-        for table in additionalTable:
-            add_table_fields = table.get("fields", []) or []
-        # add the two lists in another list, otherwise it affects the final `fields`` value in the pydantic model
-        allFields = fields + add_table_fields or []
+        recource_fields = resource.fields
+        resource_field_names = [ field.name for field in recource_fields]
+
+        mapper_fields = mapper.fields
+        additionalTable = mapper.additionalTables
+        
+        addTableFields = [] # Collect fields from additionalTables
+        if additionalTable:
+            for table in additionalTable:
+                addTableFields.extend(table.fields or [])
+
+        allFields = (mapper_fields or []) + addTableFields
+        print(f"all fields {allFields}" )
+        allFields_names = [ field.attNameResource for field in allFields]
+        print(f"allFields_names {allFields_names}" )
+        
+        print(f"mapper_fields {mapper_fields}" )
+        print(f"addTableFields {addTableFields}" )
 
         if not allFields:
             errors.append(
-                f"Both resourceToDbMapper.fields and resourceToDbMapper.additionalTables.fields cannot be empty at the same time."
+                f"Both resourceToDbMapper.fields and resourceToDbMapper.additionalTables.fields cannot be empty at the same time. "
                 f"If both are empty, no select list attributes will be included in the final query"
             )
 
-        groupBy = mapper.get("groupBy", [])
-        defaultSort = mapper.get("defaultSort")
-
-        # Collect all allowed attNamedb from primary fields
-        allowed_fields_attNamedb = {}
-        # Collect all allowed attNameResource from primary fields
-        allowed_fields_attNameResource= []
+        groupBy = mapper.groupBy
+        defaultSort = mapper.defaultSort
+        allowed_fields_attNamedb = {} # Collect all allowed attNamedb from primary fields
+        allowed_fields_attNameResource= [] # Collect all allowed attNameResource from primary fields
 
         for field in allFields:
-            attResource = field.get("attNameResource")
+            # check if attNameResource values match any attributes in the resource file
+            if field.attNameResource not in resource_field_names:
+                errors.append(
+                    f"The '{field.attNameResource}' is not a valid and existing resource attribute name 'attNameResource'. It is not specified in the relative resource yaml file.\n"
+                    + f"The existing resource attribute names are: {resource_field_names}"
+                )
+
+            attResource = field.attNameResource
             allowed_fields_attNameResource.append(attResource)
 
-            att = field.get("attNamedb")
-            case_expression = field.get("case_expression")
-            expression = field.get("expression")
-            function = field.get("function")
+            att = field.attNamedb
+            case_expression = field.case_expression
+            expression = field.expression
+            function = field.function
             if att:
-                allowed_fields_attNamedb[att] = field.get("function")  # function may be None
+                allowed_fields_attNamedb[att] = function # function may be None
             if not att and not case_expression and not expression and not function:
                 errors.append(
                     f"fields.attNamedb, fields.function, fields.expression, fields.case_expression  cannot be empty at the same time.\n"
                     f"If all are empty, no db attribute, function, expression is being assigned to the resource attribute fields.attNameResource field: `{attResource}`\n"
                     f"If a function needs to appear within an expression—or vice versa—they must be nested in a tree-like structure"
+                )
+
+         # Validation for proper mapping of all predefined resource attribute names
+        for field in resource_field_names:
+            if field not in allFields_names:
+                errors.append(
+                    f"The resource attribute '{field}' is not properly mapped to any valid data source.\n"
+                    + f"The existing resource attribute names are: {resource_field_names}\n"
                 )
                 
         # Validation for groubBy list. If an item does not exist in select list as attribute(`attNamedb`) or aggregated function, then raise error. 
@@ -302,19 +349,17 @@ class ResourceToDbMappingSpec(BaseModel):
             for att_name, func in allowed_fields_attNamedb.items():
                 if att_name not in groupBy and func is None:
                     errors.append(
-                        f"Invalid reference of attribute: '{att_name}' in fields\n"
-                        f"→ It must be defined either in the `groub by` segment or used within an aggregation function.")
+                        f"Invalid reference of attribute: '{att_name}' in fields: It must be defined either in the `group by` segment or used within an aggregation function.")
         
         # Validation for defaultSort list. If an item does not exist in select list as attribute(`attNameResource`), then raise error. 
         # The items of the list need to have the same naming as the `attNameResource`
         if defaultSort:
-            for att_name in defaultSort.get("fields"):
+            for att_name in defaultSort.fields:
                 if att_name not in allowed_fields_attNameResource:
                     errors.append(
-                        f"Invalid reference of attribute: '{att_name}' in defaultSort.fields\n"
-                        f"→ There is no attribute with this name in the `attNameResource` fields.")
+                        f"Invalid reference of attribute: '{att_name}' in defaultSort.fields: There is no attribute with this name in the `attNameResource` fields.")
                         
         if errors:
             raise ValueError(f"{len(errors)} errors raised:\n - " + "\n - ".join(errors))
 
-        return v
+        return model_instance

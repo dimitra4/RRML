@@ -35,7 +35,7 @@ docs_dir: docs
 
 # Pages shown in the left navigation
 nav:
-  - Home: index.md
+  - Specification: index.md
   - Enums: enum.md
   - Examples: Examples.md
 

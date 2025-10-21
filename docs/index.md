@@ -1,74 +1,44 @@
-# Resource and Query Builder Specification                  
+# RESTful Resource Mapping Specification (RRMS) 
 
-## Models
+The **RESTful Resource Mapping Specification (RRMS)** is a lightweight, declarative language for defining RESTful API resources and their mappings to relational databases.  
 
+Instead of writing boilerplate code for every new endpoint, developers and domain experts can describe resources in **human-readable YAML files**, including:
 
-- [AdditionalTable](#additionaltable)
+- Resource attributes and identifiers  
+- Database mappings and joins  
+- Query logic, functions, and aggregations  
+- Validation constraints  
 
-- [CaseExpression](#caseexpression)
+These specifications are automatically validated and transformed into executable code through a **template-based code generation pipeline**. The result is a set of fully functional API components—resources, repositories, mappers, and query builders—aligned with the existing backend.
 
-- [Condition](#condition)
+---
 
-- [DBColumnReference](#dbcolumnreference)
+## Why use RRMS?
 
-- [Expression](#expression)
+- **Reduce boilerplate**: eliminate repetitive coding of endpoints.  
+- **Consistency by design**: endpoints follow the same structure and rules.  
+- **Expressiveness**: model simple to complex query logic in a declarative way.  
+- **Faster onboarding**: new developers or domain experts can contribute without mastering backend frameworks.  
+- **Flexibility**: templates can target different runtimes (Java today, Python/FastAPI or others tomorrow).  
 
-- [Function](#function)
+---
 
-- [FunctionCall](#functioncall)
+## Who is this for?
 
-- [Regex](#regex)
+- **API developers** who want to speed up endpoint creation.  
+- **Domain experts** who can describe data models without writing code.  
+- **Teams** aiming for maintainability, scalability, and alignment across APIs.  
 
-- [RelationKey](#relationkey)
+---
 
-- [ResourceToDbMapper](#resourcetodbmapper)
+## How it works (at a glance)
 
-- [ResourceToDbMappingSpec](#resourcetodbmappingspec)
+1. **Write** YAML files describing resources and their mappings.  
+2. **Validate** them against the RRMS metamodel (Pydantic). They must conform to the main Pydantic object models  
+3. **Generate** backend code automatically via Jinja templates.  
+4. **Deploy** the generated classes as working REST endpoints.                
 
-- [SortedQuery](#sortedquery)
-
-- [TableAttribute](#tableattribute)
-
-- [Attribute](#attribute)
-
-- [MetaData](#metadata)
+## Main Pydantic Object Models
 
 - [Resource](#resource)
-
-- [ResourceMappingSpec](#resourcemappingspec)
-
-                          
-
-{% include-markdown "AdditionalTable.md" %}        
-
-{% include-markdown "CaseExpression.md" %}        
-
-{% include-markdown "Condition.md" %}        
-
-{% include-markdown "DBColumnReference.md" %}        
-
-{% include-markdown "Expression.md" %}        
-
-{% include-markdown "Function.md" %}        
-
-{% include-markdown "FunctionCall.md" %}        
-
-{% include-markdown "Regex.md" %}        
-
-{% include-markdown "RelationKey.md" %}        
-
-{% include-markdown "ResourceToDbMapper.md" %}        
-
-{% include-markdown "ResourceToDbMappingSpec.md" %}        
-
-{% include-markdown "SortedQuery.md" %}        
-
-{% include-markdown "TableAttribute.md" %}        
-
-{% include-markdown "Attribute.md" %}        
-
-{% include-markdown "MetaData.md" %}        
-
-{% include-markdown "Resource.md" %}        
-
-{% include-markdown "ResourceMappingSpec.md" %}
+- [ResourceToDbMapper](#resourcetodbmapper)

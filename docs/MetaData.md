@@ -10,4 +10,15 @@
 | `description` | str | Optional |  |  |
 | `searchable` | bool | Optional |  |  |
 | `sortable` | bool | Optional |  |  |
-| `units` | [Annotated](Annotated.md) | Required |  |  |
+| `units` | [Annotated](#annotated) | Required |  |  |
+
+
+
+                          
+
+
+
+
+
+                          
+{% include-markdown "Annotated.md" %}

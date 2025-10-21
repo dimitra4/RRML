@@ -44,3 +44,11 @@ This is YAML validation for the mkdocs material theme and functionality.
     "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
   ]
 ```
+
+## Run
+
+```
+cd spec_site
+source venv/bin/activate    # activate virtual env
+mkdocs serve
+```

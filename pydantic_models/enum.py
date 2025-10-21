@@ -14,6 +14,7 @@ class FieldType(StrEnum):
     double = "double"
     boolean = "boolean"
     binarystring = "binarystring"
+    decimal = "decimal"
 
 class ArithmeticOperator(StrEnum):
     MULTIPLY = "multiply"
