@@ -1,10 +1,13 @@
-# Constant Variables (Enums) 
+## Constant Variables
 
+---
 
-### `ArithmeticOperator`
-Enum representing the basic arithmetic operators.
+### ArithmeticOperator
 
-| Operator   | Symbol | Description        |
+`StrEnum`  representing the basic arithmetic operators.
+Each enum value has both a **short name** (used in YAML / DSL) and a corresponding **symbolic representation** (via the `symbol` property).
+
+| Name   | Symbol | Description        |
 |------------|--------|--------------------|
 | `multiply` | `*`    | Represents multiply|
 | `divide`   | `/`    | Represents divide  |
@@ -28,13 +31,31 @@ result = add_two_numbers(5, 3)
 print('The sum is:', result)
 ```
 
+---
+
+### ComparisonOperator
+
+`StrEnum` representing the supported comparison operators used in filtering conditions (e.g. when building queries).  
+Each enum value has both a **short name** (used in YAML / DSL) and a corresponding **symbolic representation** (via the `symbol` property).
 
 
+| Name  | Symbol | Description |
+|----------------|-------------------|-------------|
+| `"eq"`         | `=`               | Equality check |
+| `"ne"`         | `!=`              | Inequality check |
+| `"lt"`         | `<`               | Strictly less than |
+| `"lte"`        | `<=`              | Less than or equal |
+| `"gt"`         | `>`               | Strictly greater than |
+| `"gte"`        | `>=`              | Greater than or equal |
+| `"like"`       | `like`            | Pattern matching (SQL `LIKE`) |
+| `"in"`         | `in`              | Membership in a collection |
+| `"is"`         | `is`              | Identity / null check |
+| `"isnot"`      | `is not`          | Negated identity / null check |
 
 
-
-
-
-
-
-
+```python linenums="1"
+# Example usage
+op = ComparisonOperator.EQUAL
+print(op.value)   # "eq"
+print(op.symbol)  # "="
+```

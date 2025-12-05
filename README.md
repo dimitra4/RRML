@@ -1,9 +1,9 @@
-# RQB
+# RRML
 
-The RQB acronym stands for **Resource and Query Builder** Specification. This project is dedicated to explain the process of creating my documented-focused site with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+The RRML acronym stands for **RESTful Resource Mapping Language**. This project is dedicated to explain the process of creating the documentation-focused site with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
 
 <div align="center">
-  <img src="/docs/assets/images/rqb_rocket.png" alt="RQB Logo" width="600">
+  <img src="docs/assets/images/rrms_logo.png" alt="RRMS Logo" width="600">
 </div>
 
 ## Prerequisites
@@ -28,27 +28,36 @@ Material for MkDocs:
 
 <br><br>
 
-Go to Visual Studio settings and add the below to the json file.
+Go to Visual Studio settings and add the below to the json file (`settings.json`).
 This is YAML validation for the mkdocs material theme and functionality.
 
 ```
-  "yaml.schemas": {
-    "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
-  },
-  "yaml.customTags": [
-    "!ENV scalar",
-    "!ENV sequence",
-    "!relative scalar",
-    "tag:yaml.org,2002:python/name:material.extensions.emoji.to_svg",
-    "tag:yaml.org,2002:python/name:material.extensions.emoji.twemoji",
-    "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
-  ]
+"yaml.schemas": {
+  "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
+},
+"yaml.customTags": [
+  "!ENV scalar",
+  "!ENV sequence",
+  "!relative scalar",
+  "tag:yaml.org,2002:python/name:material.extensions.emoji.to_svg",
+  "tag:yaml.org,2002:python/name:material.extensions.emoji.twemoji",
+  "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
+]
 ```
 
 ## Run
 
+Install a virtual environment and activate
 ```
-cd spec_site
+python3 -m venv venv
 source venv/bin/activate    # activate virtual env
+pip install -r requirements.txt
+```
+
+Build and serve site
+```
+mkdocs build
 mkdocs serve
 ```
+
+Access the site locally on http://127.0.0.1:8000 

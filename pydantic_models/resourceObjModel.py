@@ -32,14 +32,38 @@ def sanitize_string(value: str) -> str:
 SanitizedStr = Annotated[str, AfterValidator(sanitize_string)]
 
 class MetaData(TypoDetectingModel):
+    """
+    The *MetaData* provides descriptive and behavioral information for a resource attribute.
+    It can provide a human-readable title and description, indicate whether the attribute supports filtering
+    and sorting in queries, and specify any associated measurement units.
+
+    Together, these metadata properties enhance both API usability and
+    query capabilities without altering the structural definition of the attribute itself.
+    """
+    
     title: Optional[str] = None
     description: Optional[str] = None
-    searchable: bool
-    sortable: bool
-    units: Optional[SanitizedStr] = None
+    searchable: bool = Field(
+        description="Indicates whether this attribute can be used in query filters",
+        default=None
+    )
+    sortable: bool = Field(
+        description="Indicates whether this attribute can be used to order query results",
+        default=None
+    )
+    units: Optional[SanitizedStr] = Field(
+        description="Unit of the attribute, as defined in the [*supported_units*](#SupportedTypesandUnits) YAML file",
+        default=None
+    )
 
 
 class Attribute(TypoDetectingModel):
+    """
+    The *Attribute* defines a single field of a Resource. Each attribute has
+    a name and type, may be marked as the key identifier of the resource, and
+    can optionally include additional metadata for documentation and query
+    behavior.
+    """
     name: SanitizedStr = Field(
         description="Name of the attribute of the resource",
         examples=["id", "start_time", "run_number"]
@@ -57,6 +81,16 @@ class Attribute(TypoDetectingModel):
     )
 
 class Resource(TypoDetectingModel):
+    """
+    The *Resource* model defines the representation of a domain entity exposed through the API.
+
+    - Each resource has a unique `resource_name` and may include a `version` for documentation and lifecycle tracking.
+    - A resource is composed of a list of `Attribute` elements. Each attribute carries:
+        - **Structural metadata** (e.g. its name, description, units).
+        - **Behavioral flags** that determine how it can be used in the API and in internal query logic (e.g. filtering, sorting, or key fields).
+
+    Together, these properties ensure that a Resource can be consistently documented, validated, and mapped to underlying database entities.
+    """
     resource_name: str = Field(
         description="The name of the resource. All classes will be named using this name",
         pattern=r'^[a-zA-Z0-9_]+$',  # Allows letters, digits, and underscores (no special characters)
@@ -74,9 +108,24 @@ class Resource(TypoDetectingModel):
 
     @model_validator(mode="after")
     @classmethod
-    def validate_fields(cls, model_instance):
+    def validate_resource_model(cls, model_instance):
         """
-        Runs AFTER case correction and field validation for business logic validation
+        Perform post-validation checks on a Resource definition. This validator runs **after** field-level validation and case normalization.
+        It ensures that every Resource has a proper identifier field defined.
+
+        Specifically, it enforces:
+        
+        1. **Key field requirement**
+            - At least one attribute in `resource.fields` must have `isKey=True`.
+            - This key field serves as the unique identifier of the Resource.
+            - Composite identifiers are also supported by marking multiple attributes with `isKey=True`.
+
+
+        If no key field is found, a ValueError is raised, clearly listing the issue.
+
+        This safeguard guarantees that every Resource defined in the specification
+        can be uniquely identified, which is a prerequisite for consistent mapping
+        to database entities and for stable API resource behavior.
         """
         errors = []
         

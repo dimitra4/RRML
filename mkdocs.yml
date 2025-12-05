@@ -1,14 +1,14 @@
-site_name: Resource and Query Builder Specification
+site_name: RESTful Resource Mapping Language
 site_url: http://localhost:8000
 
 theme:
   name: material
   font:
     code: Red Hat Mono
-  logo: assets/images/rqb_rocket.png
-  favicon: assets/images/rqb_rocket.png
+  logo: assets/images/rrms_v3.png
+  favicon: assets/images/rrms_logo.png
   palette:
-    primary: light blue
+    primary: blue grey
     accent: orange
   features:
     - navigation.footer
@@ -35,15 +35,14 @@ docs_dir: docs
 
 # Pages shown in the left navigation
 nav:
-  - Specification: index.md
-  - Enums: enum.md
-  - Examples: Examples.md
+  - Overview: index.md
+  - Model: 
+      Definition of Resources: ResourceMain.md
+      Definition of mapping Resources to Database: ResourceToDbMain.md
+  - YAML Examples: Examples.md
 
 markdown_extensions:
   - attr_list
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span

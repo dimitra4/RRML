@@ -17,15 +17,33 @@ from .enum import (
     )
 
 class SortingSubSelect(TypoDetectingModel):
+    """
+    Represents a **window function ordering** applied in a subselect.
+    A `SortingSubSelect` specifies the field, ordering method, and direction used when sorting rows with ranking functions like `RANK` or `ROW_NUMBER`.
+
+    **Example YAML**
+
+    ```yaml
+    sort:
+      by: "run_number"
+      type: "dense_rank"
+      order: "desc"
+    ```
+    corresponds to:
+    ```sql
+    DENSE_RANK() OVER (ORDER BY run_number DESC)
+    ```
+    """
+
     by: str = Field(
         description="The field name to sort by, e.g., 'run_number'."
     )
     type: Literal["dense_rank", "rank", "row_number"] = Field(
         description=(
-            "The sort method to use. Options include:\n"
-            "- 'dense_rank': Assigns ranks with no gaps in ranking values.\n"
-            "- 'rank': Like dense_rank but leaves gaps in the ranking sequence for ties.\n"
-            "- 'row_number': Assigns a unique sequential number to rows.\n"
+            "The sort method to use. Options include:<br>"
+            "- 'dense_rank': Assigns ranks with no gaps in ranking values.<br>"
+            "- 'rank': Like dense_rank but leaves gaps in the ranking sequence for ties.<br>"
+            "- 'row_number': Assigns a unique sequential number to rows.<br>"
         ),
         default=None
     )
@@ -35,6 +53,25 @@ class SortingSubSelect(TypoDetectingModel):
     )
 
 class SortedQuery(TypoDetectingModel):
+    """
+    Represents an **ORDER BY clause** in a query.
+    A `SortedQuery` defines which attributes can be sorted, the sorting direction, and whether null values appear first or last.<br>
+    This defines the default sorting of the resource if no sorting is specified in the REST request.
+
+    **Example YAML**
+
+    ```yaml
+    defaultSort:
+      fields: ["name"]
+      order: "asc"
+      nulls: "last"
+    ```
+
+    corresponds to:
+    ```sql
+    ORDER BY name ASC NULLS LAST
+    ```
+    """
     fields: List[str] = Field(
         description="List of the accepted attributes to be sorted",
         min_items=1
@@ -49,6 +86,22 @@ class SortedQuery(TypoDetectingModel):
     )
 
 class DBColumnReference(TypoDetectingModel):
+    """
+    References a **database column** by its table and column name.
+    Used throughout the specification to unambiguously refer to database fields in conditions, expressions, or mappings.
+
+    **Example YAML**
+
+    ```yaml
+    table: "eras"
+    column: "name"
+    ```
+
+    corresponds to:
+    ```sql
+    eras.name
+    ```
+    """
     table: str = Field(
         description="The table name of the referenced column"
     )
@@ -57,6 +110,23 @@ class DBColumnReference(TypoDetectingModel):
     )
 
 class Condition(TypoDetectingModel):
+    """
+    Represents a **WHERE condition** applied in a query.
+    A `Condition` defines a table, column, operator, and comparison value. Operators may be arithmetic or comparison operators.  
+    Multiple conditions can also be combined in a list.
+
+    **Example YAML**
+
+    ```yaml
+    conditions:
+      - column: "stable_beams"  
+        operator: "eq"
+        value: 1                   
+      - column: "enabled" 
+        operator: "eq"
+        value: 1      
+    ```
+    """
     table: Optional[str] = Field(
         description="The table name of the referenced column",
         default=None
@@ -79,10 +149,31 @@ class Condition(TypoDetectingModel):
 
 # todo the operator check ** done
 class CaseExpression(TypoDetectingModel):
+    """
+    Represents a **CASE expression** in SQL.
+    A `CaseExpression` evaluates a condition and returns a value via
+    the `then` clause. If no `when` branch matches, the optional `else`
+    provides a fallback value.
+
+    **Example YAML**
+
+    ```yaml
+    case_expression: 
+      - when: { column: "start_time", operator: "isnot", value: "null"}
+        then: 1
+    ```
+
+    corresponds to:
+    ```sql
+    CASE
+      WHEN start_time IS NOT NULL THEN 1
+    END
+    ```
+    """
     when: Condition = Field(
         description=(
             "A condition that must be met for this branch to apply. "
-            "Must contain `column`, `operator`, and/or `value` and 'table name'. `value` is optional when the operator has the value `is` or `isnot` null"
+            "Must contain `column`, `operator`, and/or `value`"
         ),
         examples=[{"column": "stablebeam", "operator": "eq", "value": 1}]
     )
@@ -97,6 +188,11 @@ class CaseExpression(TypoDetectingModel):
 
 # todo check if the column name hase the same name as one of the tableKey, targetKey
 class Regex(TypoDetectingModel):
+    """
+    Represents a **regular expression transformation** applied to a column.
+    A `Regex` extracts or validates parts of a string column using SQL regex
+    functions such as `REGEXP_SUBSTR`.
+    """
     column: str = Field(
         description="The name of the column to which the regular expression will be applied. It must match one of the defined relation keys",
         example="string_value: in the REGEXP_SUBSTR(string_value, '[^/]+', 1, 2) regex"
@@ -111,6 +207,14 @@ class Regex(TypoDetectingModel):
     ) 
 
 class RelationKey(TypoDetectingModel):
+    """
+   Represents the **key mapping** between two related tables.
+    A `RelationKey` defines how the join between two tables is performed, by specifying which column(s) act as the keys. 
+    Optionally, a regex transformation can be applied to one of the keys.
+
+    If both tables share the same key name, only `tableKey` is required.  
+    If the key names differ, then `targetKey` must also be provided to reference the column name in the related table.
+    """
     tableKey: str = Field (
         description="The name of the database column used to establish the relationship between the two tables. " \
         "If the column names differ, the `targetKey` segment must be specified"
@@ -127,6 +231,22 @@ class RelationKey(TypoDetectingModel):
     )
 
 class Function(TypoDetectingModel):
+    """
+    Represents a database function or built-in SQL function call.
+    A `Function` defines the fully qualified name of the function, along with any optional parameters and whether the call should apply `DISTINCT`.
+
+    **Example YAML**
+
+    ```yaml
+    function: 
+        name: "count"
+        distinct: true
+    ```
+    corresponds to:
+    ```sql
+    COUNT(DISTINCT column_name)
+    ```
+    """
     name: str = Field(
         description="Fully qualified name of the db function to call or any other built-in sql function",
         examples=["min", "max", "count", "avg", "sum", "round", "upper", "trim"]
@@ -137,14 +257,42 @@ class Function(TypoDetectingModel):
     )
     distinct: Optional[bool] = Field(
         description="Distinct inside the function",
-        examples="COUNT(DISTINCT value)",
         default=None 
     )
 
 class FunctionCall(TypoDetectingModel):
+    """
+    Represents an invocation of a `Function`.
+    A `FunctionCall` wraps a [`Function`](#function) object to be used inside expressions.
+    """
     function: Function
 
 class Expression(TypoDetectingModel):
+    """
+    Represents an arithmetic expression.
+
+    An `Expression` is a binary operation composed of:
+
+    - an [`ArithmeticOperator`](#arithmeticoperator)
+    - a `left` operand
+    - a `right` operand
+
+    Both operands may be literals, column references, nested function calls, or even nested expressions.
+
+    **Example YAML**
+
+    ```yaml
+    expression:
+        operator: "subtract"
+        left: {table: "fills", column: "stop_time"}
+        right: {table: "fills", column: "start_time"}
+    ```
+
+    corresponds to:
+    ```sql
+    (fills.stop_time - fills.start_time)
+    ```
+    """
     operator: ArithmeticOperator = Field(description="The arithmetic operator")
     left: Union[int, float, DBColumnReference, FunctionCall, "Expression"] = Field(
         description="The left-hand side of the expression"
@@ -156,15 +304,37 @@ class Expression(TypoDetectingModel):
 # todo if one of the attNamedb, expression, case_expression, function does not exists then raise an error ** done
 # todo to have the sort if the relation is subselect
 class TableAttribute(TypoDetectingModel):
+    """
+    Maps a **resource attribute** to its corresponding **database attribute** 
+    or derived expression.
+
+    A `TableAttribute` can represent:
+
+    - a direct database column mapping,
+    - an aggregation or built-in SQL function,
+    - a custom arithmetic expression,
+    - or a CASE expression with conditional branches.
+
+    **Examples YAML**
+
+    ```yaml
+    - attNamedb: "fill_number"
+      attNameResource: "fill_number"
+    ```
+    corresponds to:
+    ```sql
+    SELECT fill_number as fill_number
+    ```
+    """
     attNamedb: Optional[str] = Field(
-        description="Same name as the name of the database attribute of the table",
+        description="The name of the database column (attribute of the table)",
         default=None
     )
     attNameResource: str = Field(
-        description="Same name as the name of the attribute of the resource"
+        description="The name of the attribute as it appears in the resource model"
     )
     function: Optional[Function] = Field(
-        description="Resource attribute is an aggregation, built-in or custom function",
+        description="Resource attribute is computed using an aggregation, built-in, or custom function",
         default=None
     )
     expression: Optional[Expression] = Field(
@@ -182,6 +352,37 @@ class TableAttribute(TypoDetectingModel):
     )
 
 class AdditionalTable(TypoDetectingModel):
+    """
+    Represents an **additional table** that can be joined with the master table
+    or another additional table in order to enrich the resource definition.
+
+    Joins can be defined as `innerJoin`, `leftJoin`, `rightJoin`, or as a `subselect`.
+
+    **Example YAML**
+
+    ```yaml
+    additionalTables:
+      - namedb: "eras"
+        dbSchema: "cms_oms"
+        relation: "leftJoin"
+        relationTable: *masterTable
+        relationKeys:
+          - tableKey: "era_id"          # Same name in both tables
+            # - tablekey: "status"      # Different names
+            #   targetKey: "era_status"
+        fields: 
+          - attNamedb: "name"
+            attNameResource: "era""
+    ```
+
+    corresponds to:
+    ```sql
+    SELECT eras.name as era
+    FROM cms_oms.fills fills
+    LEFT JOIN cms_oms.eras eras
+      ON fills.era_id = eras.era_id
+    ```
+    """
     namedb: str = Field(
         description="The name of the database's additional table"
     )
@@ -189,13 +390,13 @@ class AdditionalTable(TypoDetectingModel):
         description="The schema of the database's addtional table"
     )
     # todo to have specific naming for the relations ** done
-    relation: Literal["innerJoin", "leftJoin", "asSubselect"] = Field(
+    relation: Literal["innerJoin", "leftJoin", "asSubselect", "rightJoin"] = Field(
         description=(
-            "The relation between the master table and the additional table. "
-            "Options:\n"
-            "- `innerJoin`: Only include matching records from both tables\n"
-            "- `leftJoin`: Include all records from master, and matched from related\n"
-            "- `asSubselect`: Join via a subquery instead of directly"
+            "The relation between the master table and the additional table. Options:<br>"
+                "- `innerJoin`: Only include matching records from both tables<br>"
+                "- `leftJoin`: Include all records from master, and matched from related<br>"
+                "- `rightJoin`: Include all records from related, and matched from master<br>"
+                "- `asSubselect`: Join via a subquery instead of directly"
         )
     )
     relationTable: str = Field(
@@ -255,6 +456,25 @@ class ResourceToDbMapper(TypoDetectingModel):
     )
 
 class ResourceToDbMappingSpec(TypoDetectingModel):
+    """
+    The *ResourceToDbMapper* defines how a *Resource* is linked to physical database
+    elements and how query behavior should be executed.
+
+    **Mapping & validation**  
+        - Ensures that all resource attributes are mapped to valid database fields or derived expressions.  
+        - Verifies that join relationships are correctly defined.  
+
+    **Database structure**  
+        - Specifies the primary table via `masterTable`.  
+        - Supports optional `additionalTables` for joined queries.  
+
+    **Query behavior**  
+        - Configures filtering conditions, grouping, sorting, and pagination.  
+        - Supports data transformations, including aggregation functions, logical or numerical expressions, and regular expressions.  
+    
+    By enforcing these rules, the ResourceToDbMapper guarantees that the
+    resource-to-database model is both valid and executable within the API.
+    """
     masterTable: Optional[str] = None
     resourceToDbMapper: ResourceToDbMapper = Field(
         description="Mapping of a resource to its database schema",
@@ -266,7 +486,40 @@ class ResourceToDbMappingSpec(TypoDetectingModel):
 
     @model_validator(mode="after")
     @classmethod
-    def validate_fields(cls, model_instance):
+    def validate_model(cls, model_instance):
+        """
+        Perform cross-object validation between a Resource and its ResourceToDbMapper.
+
+        This validator runs **after** individual field validation and case normalization.
+        It enforces consistency between the resource specification (from YAML) and the
+        database mapping definition. Specifically, it checks:
+
+        1. Resource name consistency:
+           - `resourceToDbMapper.resource_name` must equal `resource.resource_name`.
+
+        2. Mapping completeness:
+           - At least one of `resourceToDbMapper.fields` or
+             `resourceToDbMapper.additionalTables.fields` must be non-empty.
+           - Every `resource.fields` attribute must be mapped to some DB attribute
+             (direct field, expression, function, or case expression).
+
+        3. Attribute name correctness:
+           - Every `attNameResource` in the mapper must correspond to an attribute
+             defined in the Resource specification.
+           - Each mapped field must define at least one of:
+             `attNamedb`, `function`, `expression`, or `case_expression`.
+
+        4. GroupBy validation:
+           - If a `groupBy` clause is provided, every DB attribute (`attNamedb`)
+             without an aggregation function must appear in the `groupBy` list.
+
+        5. DefaultSort validation:
+           - If a `defaultSort` is defined, each item must correspond to a valid
+             `attNameResource`.
+
+        Errors are aggregated and raised as a single ValueError, making it easier
+        to spot multiple misconfigurations in one pass.
+        """
         errors = []
         if model_instance is None:
             raise ValueError("Input data cannot be None")
@@ -315,7 +568,7 @@ class ResourceToDbMappingSpec(TypoDetectingModel):
             # check if attNameResource values match any attributes in the resource file
             if field.attNameResource not in resource_field_names:
                 errors.append(
-                    f"The '{field.attNameResource}' is not a valid and existing resource attribute name 'attNameResource'. It is not specified in the relative resource yaml file.\n"
+                    f"The '{field.attNameResource}' is not a valid and existing resource attribute name 'attNameResource'. It is not specified in the relative Resource yaml file.\n"
                     + f"The existing resource attribute names are: {resource_field_names}"
                 )
 
@@ -330,8 +583,8 @@ class ResourceToDbMappingSpec(TypoDetectingModel):
                 allowed_fields_attNamedb[att] = function # function may be None
             if not att and not case_expression and not expression and not function:
                 errors.append(
-                    f"fields.attNamedb, fields.function, fields.expression, fields.case_expression  cannot be empty at the same time.\n"
-                    f"If all are empty, no db attribute, function, expression is being assigned to the resource attribute fields.attNameResource field: `{attResource}`\n"
+                    f"The resource attribute `{attResource}` is not properly mapped to any valid data source\n"
+                    f"fields.(attNamedb, function, expression, case_expression) cannot be empty at the same time.\n"
                     f"If a function needs to appear within an expression—or vice versa—they must be nested in a tree-like structure"
                 )
 
