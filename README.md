@@ -1,6 +1,6 @@
 # RRML
 
-The RRML dk acronym stands for **RESTful Resource Mapping Language**. This project is dedicated to explain the process of creating the documentation-focused site with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+The RRML acronym stands for **RESTful Resource Mapping Language**. This project is dedicated to explain the process of creating the documentation-focused site with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
 
 <div align="center">
   <img src="docs/assets/images/rrms_logo.png" alt="RRMS Logo" width="600">
