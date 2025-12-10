@@ -1,0 +1,1696 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://localhost:8000/ResourceToDbMain/">
+      
+      
+        <link rel="prev" href="../ResourceMain/">
+      
+      
+        <link rel="next" href="../Examples/">
+      
+      
+      <link rel="icon" href="../assets/images/rrms_logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Definition of mapping Resources to Database - RESTful Resource Mapping Language</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../assets/css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#resourcetodbmain" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="RESTful Resource Mapping Language" class="md-header__button md-logo" aria-label="RESTful Resource Mapping Language" data-md-component="logo">
+      
+  <img src="../assets/images/rrms_v3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RESTful Resource Mapping Language
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Definition of mapping Resources to Database
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="RESTful Resource Mapping Language" class="md-nav__button md-logo" aria-label="RESTful Resource Mapping Language" data-md-component="logo">
+      
+  <img src="../assets/images/rrms_v3.png" alt="logo">
+
+    </a>
+    RESTful Resource Mapping Language
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Model
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ResourceMain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Definition of Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Definition of mapping Resources to Database
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Definition of mapping Resources to Database
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resourcetodbmain" class="md-nav__link">
+    <span class="md-ellipsis">
+      ResourceToDbMain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ResourceToDbMain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tableattribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      TableAttribute
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additionaltable" class="md-nav__link">
+    <span class="md-ellipsis">
+      AdditionalTable
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationkey" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelationKey
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caseexpression" class="md-nav__link">
+    <span class="md-ellipsis">
+      CaseExpression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regex
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbcolumnreference" class="md-nav__link">
+    <span class="md-ellipsis">
+      DBColumnReference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sortedquery" class="md-nav__link">
+    <span class="md-ellipsis">
+      SortedQuery
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sortingsubselect" class="md-nav__link">
+    <span class="md-ellipsis">
+      SortingSubSelect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constant-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constant Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmeticoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArithmeticOperator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparisonoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      ComparisonOperator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    YAML Examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resourcetodbmain" class="md-nav__link">
+    <span class="md-ellipsis">
+      ResourceToDbMain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ResourceToDbMain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tableattribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      TableAttribute
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additionaltable" class="md-nav__link">
+    <span class="md-ellipsis">
+      AdditionalTable
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationkey" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelationKey
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Condition
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caseexpression" class="md-nav__link">
+    <span class="md-ellipsis">
+      CaseExpression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regex
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbcolumnreference" class="md-nav__link">
+    <span class="md-ellipsis">
+      DBColumnReference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sortedquery" class="md-nav__link">
+    <span class="md-ellipsis">
+      SortedQuery
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sortingsubselect" class="md-nav__link">
+    <span class="md-ellipsis">
+      SortingSubSelect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constant-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constant Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmeticoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArithmeticOperator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparisonoperator" class="md-nav__link">
+    <span class="md-ellipsis">
+      ComparisonOperator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Definition of mapping Resources to Database</h1>
+
+<h2 id="resourcetodbmain">ResourceToDbMain</h2>
+<p>The <em>ResourceToDbMapper</em> defines how a <em>Resource</em> is linked to physical database elements and how query behavior should be executed.</p>
+<p><strong>Mapping &amp; validation</strong></p>
+<ul>
+<li>Ensures that all resource attributes are mapped to valid database fields or derived expressions.  </li>
+<li>Verifies that join relationships are correctly defined.  </li>
+</ul>
+<p><strong>Database structure</strong></p>
+<ul>
+<li>Specifies the primary table via <code>masterTable</code>.  </li>
+<li>Supports optional <code>additionalTables</code> for joined queries.  </li>
+</ul>
+<p><strong>Query behavior</strong></p>
+<ul>
+<li>Configures filtering conditions, grouping, sorting, and pagination.  </li>
+<li>Supports data transformations, including aggregation functions, logical or numerical expressions, and regular expressions.  </li>
+</ul>
+<p>By enforcing these rules, the ResourceToDbMapper guarantees that the
+resource-to-database model is both valid and executable within the API.</p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>resource_name</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">The name of the resource. Needs to be associated with an existing resource</td>
+<td style="text-align: left;">era, fill</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>masterTable</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">The name of the database's master table</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>dbSchema</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">The schema of the database's master table</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>primaryKey</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">The primary key the database's master table</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>fields</code></td>
+<td style="text-align: left;">List[<a href="#tableattribute">TableAttribute</a>]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">List of the mapping between the attributes of the resource and the fields in the database</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>additionalTables</code></td>
+<td style="text-align: left;">List[<a href="#additionaltable">AdditionalTable</a>]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Provides all the information about relations between the master table and other tables</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>groupBy</code></td>
+<td style="text-align: left;">List[str]</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Applies grouping to the db resultset</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>defaultSort</code></td>
+<td style="text-align: left;"><a href="#sortedquery">SortedQuery</a></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Specifies the default sorting to the db resultset</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pagination</code></td>
+<td style="text-align: left;">Literal[enabled, disabled]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Paginate the db resultset</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rowCounting</code></td>
+<td style="text-align: left;">Literal[enabled, disabled]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Counting of the rows from the db resultset</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="validators">Validators</h3>
+<p><strong><code>validate_resource_model:</code></strong>
+Perform cross-object validation between a Resource and its ResourceToDbMapper.</p>
+<p>This validator runs <strong>after</strong> individual field validation and case normalization.
+It enforces consistency between the resource specification (from YAML) and the
+database mapping definition. Specifically, it checks:</p>
+<ol>
+<li>Resource name consistency:</li>
+<li>
+<p><code>resourceToDbMapper.resource_name</code> must equal <code>resource.resource_name</code>.</p>
+</li>
+<li>
+<p>Mapping completeness:</p>
+</li>
+<li>At least one of <code>resourceToDbMapper.fields</code> or
+     <code>resourceToDbMapper.additionalTables.fields</code> must be non-empty.</li>
+<li>
+<p>Every <code>resource.fields</code> attribute must be mapped to some DB attribute
+     (direct field, expression, function, or case expression).</p>
+</li>
+<li>
+<p>Attribute name correctness:</p>
+</li>
+<li>Every <code>attNameResource</code> in the mapper must correspond to an attribute
+     defined in the Resource specification.</li>
+<li>
+<p>Each mapped field must define at least one of:
+     <code>attNamedb</code>, <code>function</code>, <code>expression</code>, or <code>case_expression</code>.</p>
+</li>
+<li>
+<p>GroupBy validation:</p>
+</li>
+<li>
+<p>If a <code>groupBy</code> clause is provided, every DB attribute (<code>attNamedb</code>)
+     without an aggregation function must appear in the <code>groupBy</code> list.</p>
+</li>
+<li>
+<p>DefaultSort validation:</p>
+</li>
+<li>If a <code>defaultSort</code> is defined, each item must correspond to a valid
+     <code>attNameResource</code>.</li>
+</ol>
+<p>Errors are aggregated and raised as a single ValueError, making it easier
+to spot multiple misconfigurations in one pass.</p>
+<h2 id="tableattribute">TableAttribute</h2>
+<p>Maps a <strong>resource attribute</strong> to its corresponding <strong>database attribute</strong> 
+or derived expression.</p>
+<p>A <code>TableAttribute</code> can represent:</p>
+<ul>
+<li>a direct database column mapping,</li>
+<li>an aggregation or built-in SQL function,</li>
+<li>a custom arithmetic expression,</li>
+<li>or a CASE expression with conditional branches.</li>
+</ul>
+<p><strong>Examples YAML</strong></p>
+<p><div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span></code></pre></div>
+corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">fill_number</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">fill_number</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>attNamedb</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">The name of the database column (attribute of the table)</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>attNameResource</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The name of the attribute as it appears in the resource model</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>function</code></td>
+<td style="text-align: left;"><a href="#function">Function</a></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Resource attribute is computed using an aggregation, built-in, or custom function</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>expression</code></td>
+<td style="text-align: left;"><a href="#expression">Expression</a></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Resource attribute is an expression-combination of  db attributes, functions, views or values</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>case_expression</code></td>
+<td style="text-align: left;">List[<a href="#caseexpression">CaseExpression</a>]</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Resource attribute is a case expression. List of CASE branches: each with a <code>when</code> or <code>else</code> and a <code>then</code> clause</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sort</code></td>
+<td style="text-align: left;"><a href="#sortingsubselect">SortingSubSelect</a></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Sorting the subselect</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="additionaltable">AdditionalTable</h2>
+<p>Represents an <strong>additional table</strong> that can be joined with the master table
+or another additional table in order to enrich the resource definition.</p>
+<p>Joins can be defined as <code>innerJoin</code>, <code>leftJoin</code>, <code>rightJoin</code>, or as a <code>subselect</code>.</p>
+<p><strong>Example YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">additionalTables</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eras&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cms_oms&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">relation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;leftJoin&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">relationTable</span><span class="p">:</span><span class="w"> </span><span class="nv">*masterTable</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">relationKeys</span><span class="p">:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tableKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;era_id&quot;</span><span class="w">          </span><span class="c1"># Same name in both tables</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="c1"># - tablekey: &quot;status&quot;      # Different names</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="c1">#   targetKey: &quot;era_status&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;name&quot;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;era&quot;&quot;</span>
+</span></code></pre></div>
+<p>corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">eras</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">era</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">cms_oms</span><span class="p">.</span><span class="n">fills</span><span class="w"> </span><span class="n">fills</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">cms_oms</span><span class="p">.</span><span class="n">eras</span><span class="w"> </span><span class="n">eras</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">fills</span><span class="p">.</span><span class="n">era_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eras</span><span class="p">.</span><span class="n">era_id</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>namedb</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The name of the database's additional table</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>dbSchema</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The schema of the database's addtional table</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>relation</code></td>
+<td style="text-align: left;">Literal[innerJoin, leftJoin, asSubselect, rightJoin]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The relation between the master table and the additional table. Options:<br>- <code>innerJoin</code>: Only include matching records from both tables<br>- <code>leftJoin</code>: Include all records from master, and matched from related<br>- <code>rightJoin</code>: Include all records from related, and matched from master<br>- <code>asSubselect</code>: Join via a subquery instead of directly</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>relationTable</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The name of the table to which the additional table is related. This must match either a previously defined <code>namedb</code> in <code>additionalTables</code> or the <code>masterTable</code></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>relationKeys</code></td>
+<td style="text-align: left;">List[<a href="#relationkey">RelationKey</a>]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The names of the relation keys (columns) of the tables related</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>conditions</code></td>
+<td style="text-align: left;">List[<a href="#condition">Condition</a>, <a href="#regex">Regex</a>]</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">A list of conditions to apply as filters</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>fields</code></td>
+<td style="text-align: left;">List[<a href="#tableattribute">TableAttribute</a>]</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">List of the mapping between the attributes of the resource and the fields in the database</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="relationkey">RelationKey</h2>
+<p>Represents the <strong>key mapping</strong> between two related tables.
+ A <code>RelationKey</code> defines how the join between two tables is performed, by specifying which column(s) act as the keys. 
+ Optionally, a regex transformation can be applied to one of the keys.</p>
+<p>If both tables share the same key name, only <code>tableKey</code> is required.<br />
+ If the key names differ, then <code>targetKey</code> must also be provided to reference the column name in the related table.</p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>tableKey</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The name of the database column used to establish the relationship between the two tables. If the column names differ, the <code>targetKey</code> segment must be specified</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>targetKey</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">The name of the database column of the related table. This segment is used when the column names differ</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>regex</code></td>
+<td style="text-align: left;"><a href="#regex">Regex</a></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">A regular expression is applied to one of the relation keys</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="condition">Condition</h2>
+<p>Represents a <strong>WHERE condition</strong> applied in a query.
+A <code>Condition</code> defines a table, column, operator, and comparison value. Operators may be arithmetic or comparison operators.<br />
+Multiple conditions can also be combined in a list.</p>
+<p><strong>Example YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">conditions</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stable_beams&quot;</span><span class="w">  </span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eq&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">                   </span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enabled&quot;</span><span class="w"> </span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eq&quot;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">      </span>
+</span></code></pre></div>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>table</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">The table name of the referenced column</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>column</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The name of the database column that the condition applies to</td>
+<td style="text-align: left;">run_number, name, status</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>operator</code></td>
+<td style="text-align: left;"><a href="#arithmeticoperator">ArithmeticOperator</a>, <a href="#comparisonoperator">ComparisonOperator</a></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The comparison or arithmetic operator to use in the condition</td>
+<td style="text-align: left;">eq</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>value</code></td>
+<td style="text-align: left;">str, int, float, bool, List[str, int, float, bool]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The value to compare the column against. It can be a string, number, boolean, or a list of such values (used with the <code>in</code> operator).</td>
+<td style="text-align: left;">string_value, 42, True, [1, 2, 3]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="function">Function</h2>
+<p>Represents a database function or built-in SQL function call.
+A <code>Function</code> defines the fully qualified name of the function, along with any optional parameters and whether the call should apply <code>DISTINCT</code>.</p>
+<p><strong>Example YAML</strong></p>
+<p><div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;count&quot;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">distinct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div>
+corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>name</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Fully qualified name of the db function to call or any other built-in sql function</td>
+<td style="text-align: left;">min, max, count, avg, sum, round, upper, trim</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>params</code></td>
+<td style="text-align: left;">List[ForwardRef('Expression'), ForwardRef('FunctionCall'), <a href="#dbcolumnreference">DBColumnReference</a>, str, int, float, bool]</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Optional parameters to pass to the function</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>distinct</code></td>
+<td style="text-align: left;">bool</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Distinct inside the function</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="expression">Expression</h2>
+<p>Represents an arithmetic expression.</p>
+<p>An <code>Expression</code> is a binary operation composed of:</p>
+<ul>
+<li>an <a href="#arithmeticoperator"><code>ArithmeticOperator</code></a></li>
+<li>a <code>left</code> operand</li>
+<li>a <code>right</code> operand</li>
+</ul>
+<p>Both operands may be literals, column references, nested function calls, or even nested expressions.</p>
+<p><strong>Example YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">expression</span><span class="p">:</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;subtract&quot;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">left</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stop_time&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span><span class="p p-Indicator">}</span>
+</span></code></pre></div>
+<p>corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">(</span><span class="n">fills</span><span class="p">.</span><span class="n">stop_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">fills</span><span class="p">.</span><span class="n">start_time</span><span class="p">)</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>operator</code></td>
+<td style="text-align: left;"><a href="#arithmeticoperator">ArithmeticOperator</a></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The arithmetic operator</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>left</code></td>
+<td style="text-align: left;">int, float, <a href="#dbcolumnreference">DBColumnReference</a>, <a href="#functioncall">FunctionCall</a>, <a href="#expression">Expression</a></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The left-hand side of the expression</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>right</code></td>
+<td style="text-align: left;">int, float, <a href="#dbcolumnreference">DBColumnReference</a>, <a href="#functioncall">FunctionCall</a>, <a href="#expression">Expression</a></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The right-hand side of the expression</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="caseexpression">CaseExpression</h2>
+<p>Represents a <strong>CASE expression</strong> in SQL.
+A <code>CaseExpression</code> evaluates a condition and returns a value via
+the <code>then</code> clause. If no <code>when</code> branch matches, the optional <code>else</code>
+provides a fallback value.</p>
+<p><strong>Example YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">case_expression</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span><span class="p p-Indicator">,</span><span class="nt"> operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;isnot&quot;</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;null&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">then</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span></code></pre></div>
+<p>corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">CASE</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">start_time</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">END</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>when</code></td>
+<td style="text-align: left;"><a href="#condition">Condition</a></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">A condition that must be met for this branch to apply. Must contain <code>column</code>, <code>operator</code>, and/or <code>value</code></td>
+<td style="text-align: left;">{'column': 'stablebeam', 'operator': 'eq', 'value': 1}</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>else_</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Fallback value if no conditions match</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>then</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The resulting value if this condition matches</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="regex">Regex</h2>
+<p>Represents a <strong>regular expression transformation</strong> applied to a column.
+A <code>Regex</code> extracts or validates parts of a string column using SQL regex
+functions such as <code>REGEXP_SUBSTR</code>.</p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>column</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The name of the column to which the regular expression will be applied. It must match one of the defined relation keys</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pattern</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The regular expression pattern</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>groups</code></td>
+<td style="text-align: left;">List[int]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The grouping where the pattern will be applied</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="dbcolumnreference">DBColumnReference</h2>
+<p>References a <strong>database column</strong> by its table and column name.
+Used throughout the specification to unambiguously refer to database fields in conditions, expressions, or mappings.</p>
+<p><strong>Example YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eras&quot;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;name&quot;</span>
+</span></code></pre></div>
+<p>corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">eras</span><span class="p">.</span><span class="n">name</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>table</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The table name of the referenced column</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>column</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The name of the column being referenced.</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sortedquery">SortedQuery</h2>
+<p>Represents an <strong>ORDER BY clause</strong> in a query.
+A <code>SortedQuery</code> defines which attributes can be sorted, the sorting direction, and whether null values appear first or last.<br>
+This defines the default sorting of the resource if no sorting is specified in the REST request.</p>
+<p><strong>Example YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">defaultSort</span><span class="p">:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asc&quot;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">nulls</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;last&quot;</span>
+</span></code></pre></div>
+<p>corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">ASC</span><span class="w"> </span><span class="n">NULLS</span><span class="w"> </span><span class="k">LAST</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>fields</code></td>
+<td style="text-align: left;">List[str]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">List of the accepted attributes to be sorted</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>order</code></td>
+<td style="text-align: left;">Literal[asc, desc]</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Accepted order for the sorted query</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>nulls</code></td>
+<td style="text-align: left;">Literal[last, first]</td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Show nulls last or first</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sortingsubselect">SortingSubSelect</h2>
+<p>Represents a <strong>window function ordering</strong> applied in a subselect.
+A <code>SortingSubSelect</code> specifies the field, ordering method, and direction used when sorting rows with ranking functions like <code>RANK</code> or <code>ROW_NUMBER</code>.</p>
+<p><strong>Example YAML</strong></p>
+<p><div class="language-yaml highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">sort</span><span class="p">:</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">by</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;run_number&quot;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dense_rank&quot;</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;desc&quot;</span>
+</span></code></pre></div>
+corresponds to:
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">run_number</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span>
+</span></code></pre></div></p>
+<hr />
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>by</code></td>
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The field name to sort by, e.g., 'run_number'.</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>type</code></td>
+<td style="text-align: left;">Literal[dense_rank, rank, row_number]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The sort method to use. Options include:<br>- 'dense_rank': Assigns ranks with no gaps in ranking values.<br>- 'rank': Like dense_rank but leaves gaps in the ranking sequence for ties.<br>- 'row_number': Assigns a unique sequential number to rows.<br></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>order</code></td>
+<td style="text-align: left;">Literal[asc, desc]</td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">The direction of sorting: 'asc' for ascending, 'desc' for descending.</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="constant-variables">Constant Variables</h2>
+<hr />
+<h3 id="arithmeticoperator">ArithmeticOperator</h3>
+<p><code>StrEnum</code>  representing the basic arithmetic operators.
+Each enum value has both a <strong>short name</strong> (used in YAML / DSL) and a corresponding <strong>symbolic representation</strong> (via the <code>symbol</code> property).</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>multiply</code></td>
+<td><code>*</code></td>
+<td>Represents multiply</td>
+</tr>
+<tr>
+<td><code>divide</code></td>
+<td><code>/</code></td>
+<td>Represents divide</td>
+</tr>
+<tr>
+<td><code>subtract</code></td>
+<td><code>-</code></td>
+<td>Represents subtract</td>
+</tr>
+<tr>
+<td><code>add</code></td>
+<td><code>+</code></td>
+<td>Represents add</td>
+</tr>
+</tbody>
+</table>
+<p>The name of the operator follows strict naming conventions. Referencing a non-existent name will raise an error.
+Check <a href="../errors/">Error messages</a></p>
+<details class="warning">
+<summary>Constant variables</summary>
+<p>Enums are contstant variables, the names of the enums follows strict naming conventions. Referencing a non-existent name will raise an error. <a href="../errors/">Error messages</a></p>
+</details>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">add_number.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span>
+<span class="normal"><a href="#__codelineno-17-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># Function to add two numbers</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_two_numbers</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">):</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a>    <span class="k">return</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="c1"># Example usage</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="n">result</span> <span class="o">=</span> <span class="n">add_two_numbers</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The sum is:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h3 id="comparisonoperator">ComparisonOperator</h3>
+<p><code>StrEnum</code> representing the supported comparison operators used in filtering conditions (e.g. when building queries).<br />
+Each enum value has both a <strong>short name</strong> (used in YAML / DSL) and a corresponding <strong>symbolic representation</strong> (via the <code>symbol</code> property).</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"eq"</code></td>
+<td><code>=</code></td>
+<td>Equality check</td>
+</tr>
+<tr>
+<td><code>"ne"</code></td>
+<td><code>!=</code></td>
+<td>Inequality check</td>
+</tr>
+<tr>
+<td><code>"lt"</code></td>
+<td><code>&lt;</code></td>
+<td>Strictly less than</td>
+</tr>
+<tr>
+<td><code>"lte"</code></td>
+<td><code>&lt;=</code></td>
+<td>Less than or equal</td>
+</tr>
+<tr>
+<td><code>"gt"</code></td>
+<td><code>&gt;</code></td>
+<td>Strictly greater than</td>
+</tr>
+<tr>
+<td><code>"gte"</code></td>
+<td><code>&gt;=</code></td>
+<td>Greater than or equal</td>
+</tr>
+<tr>
+<td><code>"like"</code></td>
+<td><code>like</code></td>
+<td>Pattern matching (SQL <code>LIKE</code>)</td>
+</tr>
+<tr>
+<td><code>"in"</code></td>
+<td><code>in</code></td>
+<td>Membership in a collection</td>
+</tr>
+<tr>
+<td><code>"is"</code></td>
+<td><code>is</code></td>
+<td>Identity / null check</td>
+</tr>
+<tr>
+<td><code>"isnot"</code></td>
+<td><code>is not</code></td>
+<td>Negated identity / null check</td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1"># Example usage</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="n">op</span> <span class="o">=</span> <span class="n">ComparisonOperator</span><span class="o">.</span><span class="n">EQUAL</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>   <span class="c1"># &quot;eq&quot;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">symbol</span><span class="p">)</span>  <span class="c1"># &quot;=&quot;</span>
+</span></code></pre></div></td></tr></table></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ResourceMain/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Definition of Resources">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Definition of Resources
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Examples/" class="md-footer__link md-footer__link--next" aria-label="Next: YAML Examples">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                YAML Examples
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer", "navigation.instant", "navigation.tracking", "navigation.sections"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

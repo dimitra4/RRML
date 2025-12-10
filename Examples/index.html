@@ -1,0 +1,931 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://localhost:8000/Examples/">
+      
+      
+        <link rel="prev" href="../ResourceToDbMain/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/rrms_logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>YAML Examples - RESTful Resource Mapping Language</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../assets/css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#yaml-examples" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="RESTful Resource Mapping Language" class="md-header__button md-logo" aria-label="RESTful Resource Mapping Language" data-md-component="logo">
+      
+  <img src="../assets/images/rrms_v3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RESTful Resource Mapping Language
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              YAML Examples
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="RESTful Resource Mapping Language" class="md-nav__button md-logo" aria-label="RESTful Resource Mapping Language" data-md-component="logo">
+      
+  <img src="../assets/images/rrms_v3.png" alt="logo">
+
+    </a>
+    RESTful Resource Mapping Language
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Model
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ResourceMain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Definition of Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ResourceToDbMain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Definition of mapping Resources to Database
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    YAML Examples
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    YAML Examples
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-case-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Case Scenarios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple Case Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapping-with-a-single-database-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping with a single database table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-with-two-database-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping with two database tables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complex-case-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Case Scenarios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complex Case Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expressions-functions-and-nested-ones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions, functions and nested ones
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grouping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grouping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-case-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Case Scenarios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple Case Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapping-with-a-single-database-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping with a single database table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-with-two-database-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping with two database tables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complex-case-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Case Scenarios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complex Case Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expressions-functions-and-nested-ones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions, functions and nested ones
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grouping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grouping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="yaml-examples">YAML Examples</h1>
+<p>This page provides practical YAML examples that demonstrate how to define resources, mappings, and query behavior using the RRMS specification.<br />
+Each scenario illustrates a common use case, starting with simple one-to-one mappings and gradually introducing more complex structures with additional tables, joins, and expressions.</p>
+<h2 id="simple-case-scenarios">Simple Case Scenarios</h2>
+<h3 id="mapping-with-a-single-database-table">Mapping with a single database table</h3>
+<p>The master table is <code>EVENT</code>, with no <code>additionalTables</code>.<br />
+The resource represents the retrieval of events from the Data Acquisition system. </p>
+<p><strong>Resource YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">resource</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">resource_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;daqevent&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">hasMeta</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eventid&quot;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;long&quot;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="nt">isKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Event</span><span class="nv"> </span><span class="s">id&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">id</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">event&quot;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;datetime_field&quot;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;datetime&quot;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Event</span><span class="nv"> </span><span class="s">datetime&quot;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">datetime</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">event</span><span class="nv"> </span><span class="s">occured&quot;</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;display&quot;</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;boolean&quot;</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;display&quot;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Event</span><span class="nv"> </span><span class="s">display&quot;</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;message&quot;</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Event</span><span class="nv"> </span><span class="s">message&quot;</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">message</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">event</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">details&quot;</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;status&quot;</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;integer&quot;</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Event</span><span class="nv"> </span><span class="s">status&quot;</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">status</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">event&quot;</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">       </span>
+</span></code></pre></div>
+<p><strong>ResourceToDbMapper YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">resourceToDbMapper</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">resource_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;daqevent&quot;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">masterTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;event&quot;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;daq_expert&quot;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ID&quot;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eventid&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;INSERT_DATETIME&quot;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;datetime_field&quot;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DISPLAY&quot;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;display&quot;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MESSAGE&quot;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">      </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;message&quot;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EVENT_STATUS&quot;</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">      </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;status&quot;</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="nt">defaultSort</span><span class="p">:</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="nt">fields</span><span class="p">:</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;eventid&quot;</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asc&quot;</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="nt">nulls</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;last&quot;</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enabled&quot;</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">  </span><span class="nt">rowCounting</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enabled&quot;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="mapping-with-two-database-tables">Mapping with two database tables</h3>
+<p>The master table is <code>ERAS</code> and <code>additionalTables</code> <code>RUNS</code>.<br />
+The resource retrieves eras along with their first and last run numbers and corresponding times. </p>
+<p><strong>Resource YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nn">---</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">resource</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">resource_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;era&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">hasMeta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># include meta </span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;name&quot;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="nt">isKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># identifier of the resource</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Era</span><span class="nv"> </span><span class="s">name&quot;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;datetime&quot;</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Start</span><span class="nv"> </span><span class="s">time</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">run&quot;</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Time</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">era</span><span class="nv"> </span><span class="s">period</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">started&quot;</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;end_time&quot;</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;datetime&quot;</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Stop</span><span class="nv"> </span><span class="s">time</span><span class="nv"> </span><span class="s">last</span><span class="nv"> </span><span class="s">run&quot;</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Time</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">last</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">era</span><span class="nv"> </span><span class="s">period</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">stopped&quot;</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_run&quot;</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;integer&quot;</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;First</span><span class="nv"> </span><span class="s">run&quot;</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;First</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">number</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">era</span><span class="nv"> </span><span class="s">period&quot;</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;end_run&quot;</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;integer&quot;</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">      </span><span class="nt">meta</span><span class="p">:</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Last</span><span class="nv"> </span><span class="s">run&quot;</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Last</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">number</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">era</span><span class="nv"> </span><span class="s">period&quot;</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">        </span><span class="nt">searchable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="w">        </span><span class="nt">sortable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div>
+<p><strong>ResourceToDbMapper YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">masterTable</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;masterTable</span><span class="w"> </span><span class="s">&quot;eras&quot;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">resourceToDbMapper</span><span class="p">:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">resource_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;era&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">masterTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eras&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;oms&quot;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;name&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;name&quot;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="nt">additionalTables</span><span class="p">:</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;runs&quot;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">      </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;oms&quot;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">      </span><span class="nt">relation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asSubselect&quot;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">      </span><span class="nt">relationTable</span><span class="p">:</span><span class="w"> </span><span class="nv">*masterTable</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">      </span><span class="nt">relationKeys</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tableKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;era_id&quot;</span><span class="w"> </span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;run_number&quot;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">          </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;max&quot;</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;end_run&quot;</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;run_number&quot;</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">          </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;min&quot;</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_run&quot;</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stop_time&quot;</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">          </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;max&quot;</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;end_time&quot;</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">          </span><span class="nt">sort</span><span class="p">:</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">            </span><span class="nt">by</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;run_number&quot;</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dense_rank&quot;</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">            </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asc&quot;</span>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w">          </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;min&quot;</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">          </span><span class="nt">sort</span><span class="p">:</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="w">            </span><span class="nt">by</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;run_number&quot;</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dense_rank&quot;</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="w">            </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asc&quot;</span>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="w">  </span><span class="nt">defaultSort</span><span class="p">:</span>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="w">      </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asc&quot;</span>
+</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a><span class="w">      </span><span class="nt">nulls</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;last&quot;</span>
+</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;disabled&quot;</span>
+</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a><span class="w">  </span><span class="nt">rowCounting</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;disabled&quot;</span>
+</span></code></pre></div>
+<h2 id="complex-case-scenarios">Complex Case Scenarios</h2>
+<p>These examples go beyond direct column mappings.<br />
+They include derived columns, computed expressions, and the use of functions to transform or aggregate data.</p>
+<h3 id="expressions-functions-and-nested-ones">Expressions, functions and nested ones</h3>
+<p>The exmaple resembles the <strong>FILL</strong> resource, which is the fill of protons happening in the LHC for collisions. 
+There some attributes with direct mapping to database columns and some, such as the <code>duration_total</code> that is a derived column, a subtract expression betwwen two columns from the master table <code>FILLS</code>.</p>
+<p><strong>Resource YAML</strong></p>
+<p><strong>ResourceToDbMapper YAML</strong></p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">masterTable</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;masterTable</span><span class="w"> </span><span class="s">&quot;fills&quot;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">resourceToDbMapper</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">resource_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">masterTable</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cms_oms&quot;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">primaryKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">      </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;duration_total&quot;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">      </span><span class="nt">expression</span><span class="p">:</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;subtract&quot;</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="nt">left</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stop_time&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">        </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;efficiency_lumi&quot;</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">      </span><span class="nt">expression</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;divide&quot;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="nt">left</span><span class="p">:</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;multiply&quot;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">            </span><span class="nt">left</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">            </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;recorded_lumi&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">        </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;delivered_lumi&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">  </span><span class="nt">additionalTables</span><span class="p">:</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;downtimes&quot;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">      </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cms_oms&quot;</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">      </span><span class="nt">relation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asSubselect&quot;</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">      </span><span class="nt">relationTable</span><span class="p">:</span><span class="w"> </span><span class="nv">*masterTable</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">      </span><span class="nt">relationKeys</span><span class="p">:</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tableKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_fill_number&quot;</span><span class="w"> </span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">          </span><span class="nt">targetKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">      </span><span class="nt">conditions</span><span class="p">:</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stable_beams&quot;</span><span class="w">  </span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">          </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eq&quot;</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">                   </span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enabled&quot;</span><span class="w"> </span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="w">          </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eq&quot;</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">      </span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;downtime&quot;</span><span class="w"> </span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="w">          </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sum&quot;</span><span class="w"> </span>
+</span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="w">            </span><span class="nt">params</span><span class="p">:</span>
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;round&quot;</span>
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="w">                  </span><span class="nt">params</span><span class="p">:</span>
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="w">                    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;multiply&quot;</span>
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="w">                      </span><span class="nt">left</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a><span class="w">                        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;subtract&quot;</span>
+</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a><span class="w">                        </span><span class="nt">left</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;downtimes&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stop_time&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a><span class="w">                        </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;downtimes&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span><span class="p p-Indicator">}</span><span class="w">    </span>
+</span><span id="__span-4-52"><a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a><span class="w">                      </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150</span><span class="w"> </span>
+</span><span id="__span-4-53"><a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_stable_beams&quot;</span>
+</span><span id="__span-4-54"><a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a><span class="w">      </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cms_oms&quot;</span>
+</span><span id="__span-4-55"><a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a><span class="w">      </span><span class="nt">relation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;leftJoin&quot;</span>
+</span><span id="__span-4-56"><a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a><span class="w">      </span><span class="nt">relationTable</span><span class="p">:</span><span class="w"> </span><span class="nv">*masterTable</span>
+</span><span id="__span-4-57"><a id="__codelineno-4-57" name="__codelineno-4-57" href="#__codelineno-4-57"></a><span class="w">      </span><span class="nt">relationKeys</span><span class="p">:</span>
+</span><span id="__span-4-58"><a id="__codelineno-4-58" name="__codelineno-4-58" href="#__codelineno-4-58"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tableKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span><span id="__span-4-59"><a id="__codelineno-4-59" name="__codelineno-4-59" href="#__codelineno-4-59"></a><span class="w">      </span><span class="nt">conditions</span><span class="p">:</span>
+</span><span id="__span-4-60"><a id="__codelineno-4-60" name="__codelineno-4-60" href="#__codelineno-4-60"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stable_beams_event&quot;</span><span class="w">   </span><span class="c1"># Different names</span>
+</span><span id="__span-4-61"><a id="__codelineno-4-61" name="__codelineno-4-61" href="#__codelineno-4-61"></a><span class="w">          </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eq&quot;</span>
+</span><span id="__span-4-62"><a id="__codelineno-4-62" name="__codelineno-4-62" href="#__codelineno-4-62"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">                         </span><span class="c1"># string, bool, number</span>
+</span><span id="__span-4-63"><a id="__codelineno-4-63" name="__codelineno-4-63" href="#__codelineno-4-63"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-64"><a id="__codelineno-4-64" name="__codelineno-4-64" href="#__codelineno-4-64"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span>
+</span><span id="__span-4-65"><a id="__codelineno-4-65" name="__codelineno-4-65" href="#__codelineno-4-65"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_stable_beam&quot;</span>
+</span><span id="__span-4-66"><a id="__codelineno-4-66" name="__codelineno-4-66" href="#__codelineno-4-66"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;end_time&quot;</span>
+</span><span id="__span-4-67"><a id="__codelineno-4-67" name="__codelineno-4-67" href="#__codelineno-4-67"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;end_stable_beam&quot;</span>
+</span><span id="__span-4-68"><a id="__codelineno-4-68" name="__codelineno-4-68" href="#__codelineno-4-68"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;duration&quot;</span>
+</span><span id="__span-4-69"><a id="__codelineno-4-69" name="__codelineno-4-69" href="#__codelineno-4-69"></a><span class="w">          </span><span class="nt">expression</span><span class="p">:</span>
+</span><span id="__span-4-70"><a id="__codelineno-4-70" name="__codelineno-4-70" href="#__codelineno-4-70"></a><span class="w">            </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;subtract&quot;</span>
+</span><span id="__span-4-71"><a id="__codelineno-4-71" name="__codelineno-4-71" href="#__codelineno-4-71"></a><span class="w">            </span><span class="nt">left</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_stable_beams&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;end_time&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-72"><a id="__codelineno-4-72" name="__codelineno-4-72" href="#__codelineno-4-72"></a><span class="w">            </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_stable_beams&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-73"><a id="__codelineno-4-73" name="__codelineno-4-73" href="#__codelineno-4-73"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;to_ready_time&quot;</span>
+</span><span id="__span-4-74"><a id="__codelineno-4-74" name="__codelineno-4-74" href="#__codelineno-4-74"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;to_ready_time&quot;</span>
+</span><span id="__span-4-75"><a id="__codelineno-4-75" name="__codelineno-4-75" href="#__codelineno-4-75"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;to_tracker_ready&quot;</span>
+</span><span id="__span-4-76"><a id="__codelineno-4-76" name="__codelineno-4-76" href="#__codelineno-4-76"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;to_tracker_ready_time&quot;</span>
+</span><span id="__span-4-77"><a id="__codelineno-4-77" name="__codelineno-4-77" href="#__codelineno-4-77"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dump_ready_to_dump_time&quot;</span>
+</span><span id="__span-4-78"><a id="__codelineno-4-78" name="__codelineno-4-78" href="#__codelineno-4-78"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dump_ready_to_dump_time&quot;</span>
+</span><span id="__span-4-79"><a id="__codelineno-4-79" name="__codelineno-4-79" href="#__codelineno-4-79"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;to_dump_ready_time&quot;</span>
+</span><span id="__span-4-80"><a id="__codelineno-4-80" name="__codelineno-4-80" href="#__codelineno-4-80"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;to_dump_ready_time&quot;</span>
+</span><span id="__span-4-81"><a id="__codelineno-4-81" name="__codelineno-4-81" href="#__codelineno-4-81"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stable_beams&quot;</span>
+</span><span id="__span-4-82"><a id="__codelineno-4-82" name="__codelineno-4-82" href="#__codelineno-4-82"></a><span class="w">          </span><span class="nt">case_expression</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-83"><a id="__codelineno-4-83" name="__codelineno-4-83" href="#__codelineno-4-83"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;start_time&quot;</span><span class="p p-Indicator">,</span><span class="nt"> operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;isnot&quot;</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;null&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-84"><a id="__codelineno-4-84" name="__codelineno-4-84" href="#__codelineno-4-84"></a><span class="w">              </span><span class="nt">then</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-4-85"><a id="__codelineno-4-85" name="__codelineno-4-85" href="#__codelineno-4-85"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;runs&quot;</span>
+</span><span id="__span-4-86"><a id="__codelineno-4-86" name="__codelineno-4-86" href="#__codelineno-4-86"></a><span class="w">      </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cms_oms&quot;</span>
+</span><span id="__span-4-87"><a id="__codelineno-4-87" name="__codelineno-4-87" href="#__codelineno-4-87"></a><span class="w">      </span><span class="nt">relation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;asSubselect&quot;</span>
+</span><span id="__span-4-88"><a id="__codelineno-4-88" name="__codelineno-4-88" href="#__codelineno-4-88"></a><span class="w">      </span><span class="nt">relationTable</span><span class="p">:</span><span class="w"> </span><span class="nv">*masterTable</span>
+</span><span id="__span-4-89"><a id="__codelineno-4-89" name="__codelineno-4-89" href="#__codelineno-4-89"></a><span class="w">      </span><span class="nt">relationKeys</span><span class="p">:</span>
+</span><span id="__span-4-90"><a id="__codelineno-4-90" name="__codelineno-4-90" href="#__codelineno-4-90"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tableKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span>
+</span><span id="__span-4-91"><a id="__codelineno-4-91" name="__codelineno-4-91" href="#__codelineno-4-91"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-92"><a id="__codelineno-4-92" name="__codelineno-4-92" href="#__codelineno-4-92"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNamedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;b_field&quot;</span>
+</span><span id="__span-4-93"><a id="__codelineno-4-93" name="__codelineno-4-93" href="#__codelineno-4-93"></a><span class="w">          </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;b_field&quot;</span>
+</span><span id="__span-4-94"><a id="__codelineno-4-94" name="__codelineno-4-94" href="#__codelineno-4-94"></a><span class="w">          </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-95"><a id="__codelineno-4-95" name="__codelineno-4-95" href="#__codelineno-4-95"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;avg&quot;</span>
+</span><span id="__span-4-96"><a id="__codelineno-4-96" name="__codelineno-4-96" href="#__codelineno-4-96"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namedb</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;scaling_info&quot;</span>
+</span><span id="__span-4-97"><a id="__codelineno-4-97" name="__codelineno-4-97" href="#__codelineno-4-97"></a><span class="w">      </span><span class="nt">dbSchema</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cms_oms&quot;</span>
+</span><span id="__span-4-98"><a id="__codelineno-4-98" name="__codelineno-4-98" href="#__codelineno-4-98"></a><span class="w">      </span><span class="nt">relation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;leftJoin&quot;</span>
+</span><span id="__span-4-99"><a id="__codelineno-4-99" name="__codelineno-4-99" href="#__codelineno-4-99"></a><span class="w">      </span><span class="nt">relationTable</span><span class="p">:</span><span class="w"> </span><span class="nv">*masterTable</span>
+</span><span id="__span-4-100"><a id="__codelineno-4-100" name="__codelineno-4-100" href="#__codelineno-4-100"></a><span class="w">      </span><span class="nt">relationKeys</span><span class="p">:</span>
+</span><span id="__span-4-101"><a id="__codelineno-4-101" name="__codelineno-4-101" href="#__codelineno-4-101"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tableKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;scale_id&quot;</span>
+</span><span id="__span-4-102"><a id="__codelineno-4-102" name="__codelineno-4-102" href="#__codelineno-4-102"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span>
+</span><span id="__span-4-103"><a id="__codelineno-4-103" name="__codelineno-4-103" href="#__codelineno-4-103"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attNameResource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;delivered_lumi_stablebeams&quot;</span>
+</span><span id="__span-4-104"><a id="__codelineno-4-104" name="__codelineno-4-104" href="#__codelineno-4-104"></a><span class="w">          </span><span class="nt">expression</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-105"><a id="__codelineno-4-105" name="__codelineno-4-105" href="#__codelineno-4-105"></a><span class="w">            </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;multiply&quot;</span><span class="w"> </span>
+</span><span id="__span-4-106"><a id="__codelineno-4-106" name="__codelineno-4-106" href="#__codelineno-4-106"></a><span class="w">            </span><span class="nt">left</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-107"><a id="__codelineno-4-107" name="__codelineno-4-107" href="#__codelineno-4-107"></a><span class="w">              </span><span class="nt">function</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-4-108"><a id="__codelineno-4-108" name="__codelineno-4-108" href="#__codelineno-4-108"></a><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CMS_OMS_AGG.data_summary.get_fill_delivered_lumi&quot;</span>
+</span><span id="__span-4-109"><a id="__codelineno-4-109" name="__codelineno-4-109" href="#__codelineno-4-109"></a><span class="w">                </span><span class="nt">params</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fills&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fill_number&quot;</span><span class="p p-Indicator">}]</span><span class="w"> </span><span class="c1"># optional</span>
+</span><span id="__span-4-110"><a id="__codelineno-4-110" name="__codelineno-4-110" href="#__codelineno-4-110"></a><span class="w">            </span><span class="nt">right</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;scaling_info&quot;</span><span class="p p-Indicator">,</span><span class="nt"> column</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;integrated_lumi_scale_factor&quot;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-4-111"><a id="__codelineno-4-111" name="__codelineno-4-111" href="#__codelineno-4-111"></a><span class="w">  </span><span class="nt">defaultSort</span><span class="p">:</span>
+</span><span id="__span-4-112"><a id="__codelineno-4-112" name="__codelineno-4-112" href="#__codelineno-4-112"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;fill_number&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-4-113"><a id="__codelineno-4-113" name="__codelineno-4-113" href="#__codelineno-4-113"></a><span class="w">      </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;desc&quot;</span>
+</span><span id="__span-4-114"><a id="__codelineno-4-114" name="__codelineno-4-114" href="#__codelineno-4-114"></a><span class="w">      </span><span class="nt">nulls</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;last&quot;</span>
+</span><span id="__span-4-115"><a id="__codelineno-4-115" name="__codelineno-4-115" href="#__codelineno-4-115"></a><span class="w">  </span><span class="nt">pagination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enabled&quot;</span>
+</span><span id="__span-4-116"><a id="__codelineno-4-116" name="__codelineno-4-116" href="#__codelineno-4-116"></a><span class="w">  </span><span class="nt">rowCounting</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;disabled&quot;</span>
+</span></code></pre></div>
+<h3 id="grouping">Grouping</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ResourceToDbMain/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Definition of mapping Resources to Database">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Definition of mapping Resources to Database
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer", "navigation.instant", "navigation.tracking", "navigation.sections"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
